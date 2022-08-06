@@ -16,6 +16,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import static org.hamcrest.core.IsEqual.equalTo;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.ResultMatcher.matchAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -59,7 +60,10 @@ public class HeroCrudControllerTest {
                 .andDo(print())
                 .andExpect(
                         matchAll(
-                                status().isOk()
+                                status().isOk(),
+                                jsonPath("$.id", equalTo(req.getId())),
+                                jsonPath("$.name", equalTo(req.getName())),
+                                jsonPath("$.power", equalTo(req.getPower()))
                         )
                 );
     }
