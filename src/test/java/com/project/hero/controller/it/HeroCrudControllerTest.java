@@ -1,6 +1,7 @@
 package com.project.hero.controller.it;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.project.hero.infrastructure.persistence.repository.HeroRespository;
 import com.project.hero.service.HeroeRequestBuilder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -27,6 +28,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 public class HeroCrudControllerTest {
     @Autowired
     private HeroeRequestBuilder heroebuilder;
+
+    @Autowired
+    private HeroRespository heroRepo;
 
     @Autowired
     private WebApplicationContext context;
@@ -63,5 +67,6 @@ public class HeroCrudControllerTest {
                                 jsonPath("$.power", equalTo(req.getPower()))
                         )
                 );
+
     }
 }

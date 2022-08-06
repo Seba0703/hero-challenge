@@ -1,7 +1,7 @@
 package com.project.hero.service;
 
 import com.github.javafaker.Faker;
-import com.project.hero.infrastructure.request.HeroeRequest;
+import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import org.springframework.stereotype.Service;
 
 @Service
