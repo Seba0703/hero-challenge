@@ -1,0 +1,20 @@
+package com.project.hero.service;
+
+import com.github.javafaker.Faker;
+import com.project.hero.infrastructure.request.HeroeRequest;
+import org.springframework.stereotype.Service;
+
+@Service
+public class HeroeRequestBuilder {
+
+    private final Faker faker = new Faker();
+
+    public HeroeRequest build() {
+        return HeroeRequest.builder()
+                .id(faker.number().randomDigit())
+                .name(faker.superhero().name())
+                .power(faker.superhero().power())
+                .build();
+
+    }
+}
