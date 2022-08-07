@@ -1,7 +1,11 @@
 package com.project.hero.infrastructure.rest;
 
+import com.project.hero.application.dto.HeroDTO;
+import com.project.hero.application.mapper.HeroMapper;
+import com.project.hero.application.usecases.SaveHeroService;
 import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import com.project.hero.infrastructure.rest.response.HeroResponse;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -13,8 +17,15 @@ import static org.springframework.http.MediaType.APPLICATION_JSON_VALUE;
 @RequestMapping
 public class HeroController {
 
+    @Autowired
+    private SaveHeroService heroService;
+
+    @Autowired
+    private HeroMapper heroMapper;
+
     @PostMapping(value = "/hero", consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public HeroResponse createHero(@RequestBody HeroeRequest req) {
-        return HeroResponse.builder().id(req.getId()).name(req.getName()).power(req.getPower()).build();
+        HeroDTO hero = heroService.save(req);
+        return heroMapper.toResponse(hero);
     }
 }
