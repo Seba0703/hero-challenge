@@ -3,6 +3,7 @@ package com.project.hero.infrastructure.rest.controller;
 import com.project.hero.application.dto.HeroDTO;
 import com.project.hero.application.exceptions.HeroNotFound;
 import com.project.hero.application.mapper.HeroMapper;
+import com.project.hero.application.usecases.HeroEliminatorService;
 import com.project.hero.application.usecases.HeroFinderService;
 import com.project.hero.application.usecases.HeroUpdaterService;
 import com.project.hero.application.usecases.SaveHeroService;
@@ -26,6 +27,9 @@ public class HeroController {
 
     @Autowired
     private HeroUpdaterService heroUpdaterService;
+
+    @Autowired
+    private HeroEliminatorService heroEliminatorService;
 
 
     @Autowired
@@ -57,6 +61,7 @@ public class HeroController {
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
     public void deleteHero(@PathVariable Integer id) throws HeroNotFound {
 
+        heroEliminatorService.delete(id);
 
     }
 

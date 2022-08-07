@@ -20,4 +20,8 @@ public interface HeroRespository extends JpaRepository<Hero, Integer>, HeroComma
         return ((CrudRepository<Hero, Integer>) this).save(hero);
     }
 
+    default void delete(Integer id) {
+        this.deleteById(id);
+    }
+
 }
