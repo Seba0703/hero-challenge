@@ -46,7 +46,7 @@ public class HeroCrudControllerTest {
     @Autowired
     private ObjectMapper objectMapper;
 
-    private final String heroPath = "/hero";
+    private final String heroPath = "/v1/hero";
 
     @BeforeAll
     public void setup() {
@@ -81,7 +81,8 @@ public class HeroCrudControllerTest {
     @Test
     public void Given_UnHeroeCreado_When_SeBuscaPorId_Then_unHeroeEsEncontrado() throws Exception {
         var hero = heroFactory.create();
-        var heroFindId = heroPath.concat("/").concat(String.valueOf(hero.getId()));
+        var heroFindId = heroPath.concat("/")
+                .concat(String.valueOf(hero.getId()));
 
         this.mockMvc.perform(
                 get(heroFindId)
@@ -92,6 +93,7 @@ public class HeroCrudControllerTest {
                 .andExpect(
                         matchAll(
                                 status().isOk()
+
                         )
                 );
 
