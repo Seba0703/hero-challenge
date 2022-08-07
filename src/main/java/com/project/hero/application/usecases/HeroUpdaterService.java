@@ -8,6 +8,7 @@ import com.project.hero.application.mapper.HeroMapper;
 import com.project.hero.domain.entity.Hero;
 import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.CachePut;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -24,6 +25,7 @@ public class HeroUpdaterService {
     @Autowired
     private HeroMapper heroMapper;
 
+    @CachePut(value = "heroes", key = "#heroReq.id")
     public HeroDTO update(HeroeRequest heroReq) throws HeroNotFound {
         Optional<Hero> oldHero = heroQueryService.findHero(heroReq.getId());
 

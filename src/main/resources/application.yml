@@ -3,3 +3,10 @@ spring:
     user:
       name: seba
       password: 1234
+logging:
+  level:
+    com:
+      project:
+        hero: DEBUG
+    org:
+      springframework: DEBUG

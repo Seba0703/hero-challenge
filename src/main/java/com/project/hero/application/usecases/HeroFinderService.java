@@ -7,6 +7,7 @@ import com.project.hero.application.mapper.HeroMapper;
 import com.project.hero.domain.entity.Hero;
 import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
@@ -23,6 +24,7 @@ public class HeroFinderService {
     @Autowired
     private HeroMapper heroMapper;
 
+    @Cacheable( value = "heroes")
     public HeroDTO findHero(Integer id) throws HeroNotFound {
         Optional<Hero> getHero = heroQueryService.findHero(id);
 
