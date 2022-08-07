@@ -5,4 +5,6 @@ import com.project.hero.domain.entity.Hero;
 public interface HeroCommandService {
 
     Hero save(Hero hero);
+
+    Hero update(Hero hero);
 }

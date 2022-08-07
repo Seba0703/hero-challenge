@@ -119,8 +119,10 @@ public class HeroCrudControllerTest {
                 .andDo(print())
                 .andExpect(
                         matchAll(
-                                status().isOk()
-
+                                status().isOk(),
+                                jsonPath("$.id", equalTo(hero.getId())),
+                                jsonPath("$.name", equalTo(hero.getName())),
+                                jsonPath("$.power", equalTo(hero.getPower()))
                         )
                 );
     }

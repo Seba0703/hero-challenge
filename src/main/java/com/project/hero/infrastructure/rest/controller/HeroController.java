@@ -4,6 +4,7 @@ import com.project.hero.application.dto.HeroDTO;
 import com.project.hero.application.exceptions.HeroNotFound;
 import com.project.hero.application.mapper.HeroMapper;
 import com.project.hero.application.usecases.HeroFinderService;
+import com.project.hero.application.usecases.HeroUpdaterService;
 import com.project.hero.application.usecases.SaveHeroService;
 import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import com.project.hero.infrastructure.rest.response.HeroResponse;
@@ -21,6 +22,10 @@ public class HeroController {
 
     @Autowired
     private HeroFinderService heroFinderService;
+
+    @Autowired
+    private HeroUpdaterService heroUpdaterService;
+
 
     @Autowired
     private HeroMapper heroMapper;
@@ -42,8 +47,9 @@ public class HeroController {
     @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     public HeroResponse findHero(@RequestBody HeroeRequest req) throws HeroNotFound {
 
+        HeroDTO hero = heroUpdaterService.update(req);
 
-        return HeroResponse.builder().name("").power("").id(1).build();
+        return heroMapper.toResponse(hero);
     }
 
 

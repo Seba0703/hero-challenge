@@ -4,6 +4,7 @@ import com.project.hero.application.adapter.HeroCommandService;
 import com.project.hero.application.adapter.HeroQueryService;
 import com.project.hero.domain.entity.Hero;
 import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.repository.CrudRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.Optional;
@@ -13,6 +14,10 @@ public interface HeroRespository extends JpaRepository<Hero, Integer>, HeroComma
 
     default Optional<Hero> findHero(Integer id) {
         return this.findById(id);
+    }
+
+    default Hero update(Hero hero) {
+        return ((CrudRepository<Hero, Integer>) this).save(hero);
     }
 
 }
