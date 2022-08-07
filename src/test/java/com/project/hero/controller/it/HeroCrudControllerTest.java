@@ -20,9 +20,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.ResultMatcher.matchAll;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -123,6 +121,27 @@ public class HeroCrudControllerTest {
                                 jsonPath("$.id", equalTo(hero.getId())),
                                 jsonPath("$.name", equalTo(hero.getName())),
                                 jsonPath("$.power", equalTo(hero.getPower()))
+                        )
+                );
+    }
+
+    @Test
+    public void Given_UnHeroeCreado_When_SeEliminaUnHeroe_Then_unHeroeEsEliminado() throws Exception {
+        var hero = heroFactory.create();
+
+        var heroFindId = heroPath.concat("/")
+                .concat(String.valueOf(hero.getId()));
+
+        this.mockMvc.perform(
+                delete(heroFindId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+
+                )
+                .andDo(print())
+                .andExpect(
+                        matchAll(
+                                status().isNoContent()
                         )
                 );
     }
