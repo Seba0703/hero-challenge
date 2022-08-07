@@ -7,9 +7,11 @@ import com.project.hero.application.usecases.HeroEliminatorService;
 import com.project.hero.application.usecases.HeroFinderService;
 import com.project.hero.application.usecases.HeroUpdaterService;
 import com.project.hero.application.usecases.SaveHeroService;
+import com.project.hero.domain.entity.Hero;
 import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import com.project.hero.infrastructure.rest.response.HeroResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
@@ -64,6 +66,14 @@ public class HeroController {
         heroEliminatorService.delete(id);
 
     }
+
+    @GetMapping
+    public HeroResponse findAllHero() throws HeroNotFound {
+
+
+        return null;
+    }
+
 
 
 }

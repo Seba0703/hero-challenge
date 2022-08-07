@@ -62,16 +62,14 @@ public class HeroCrudControllerTest {
                 post(heroPath)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(req))
-        )
+                        .content(objectMapper.writeValueAsString(req)))
                 .andDo(print())
                 .andExpect(
                         matchAll(
                                 status().isOk(),
                                 jsonPath("$.id", equalTo(req.getId())),
                                 jsonPath("$.name", equalTo(req.getName())),
-                                jsonPath("$.power", equalTo(req.getPower()))
-                        )
+                                jsonPath("$.power", equalTo(req.getPower())))
                 );
 
         assertTrue(heroRepo.findById(req.getId()).isPresent());
@@ -87,18 +85,14 @@ public class HeroCrudControllerTest {
         this.mockMvc.perform(
                 get(heroFindId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-        )
+                        .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(
                         matchAll(
                                 status().isOk(),
                                 jsonPath("$.id", equalTo(hero.getId())),
                                 jsonPath("$.name", equalTo(hero.getName())),
-                                jsonPath("$.power", equalTo(hero.getPower()))
-
-                        )
-                );
+                                jsonPath("$.power", equalTo(hero.getPower()))));
     }
 
     @Test
@@ -111,18 +105,14 @@ public class HeroCrudControllerTest {
                 put(heroPath)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(hero))
-
-                )
+                        .content(objectMapper.writeValueAsString(hero)))
                 .andDo(print())
                 .andExpect(
                         matchAll(
                                 status().isOk(),
                                 jsonPath("$.id", equalTo(hero.getId())),
                                 jsonPath("$.name", equalTo(hero.getName())),
-                                jsonPath("$.power", equalTo(hero.getPower()))
-                        )
-                );
+                                jsonPath("$.power", equalTo(hero.getPower()))));
     }
 
     @Test
@@ -135,17 +125,30 @@ public class HeroCrudControllerTest {
         this.mockMvc.perform(
                 delete(heroFindId)
                         .contentType(MediaType.APPLICATION_JSON)
-                        .accept(MediaType.APPLICATION_JSON)
-
-                )
+                        .accept(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(
                         matchAll(
-                                status().isNoContent()
-                        )
-                );
+                                status().isNoContent()));
 
         assertTrue(heroRepo.findById(hero.getId()).isEmpty());
+    }
+
+    @Test
+    public void Given_dosHeroesCreados_When_SeBuscaPorPrimerPaginaDe10_Then_dosHeroesEncontrados() throws Exception {
+        var firstHero = heroFactory.create();
+        var secondHero = heroFactory.create();
+
+
+        this.mockMvc.perform(
+                get(heroPath)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(
+                        matchAll(
+                                status().isOk()));
+
     }
 
 
