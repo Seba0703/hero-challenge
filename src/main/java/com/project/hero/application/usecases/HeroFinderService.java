@@ -5,7 +5,11 @@ import com.project.hero.application.dto.HeroDTO;
 import com.project.hero.application.exceptions.HeroNotFound;
 import com.project.hero.application.mapper.HeroMapper;
 import com.project.hero.domain.entity.Hero;
+import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -27,7 +31,12 @@ public class HeroFinderService {
         } else {
             throw new HeroNotFound();
         }
+    }
 
+    public Page<HeroDTO> findAll(Pageable pageable, Specification<Hero> where) {
 
+        Page<Hero> heroes = heroQueryService.findAllPaged(pageable, where);
+
+        return  heroes.map(heroMapper::toDTO);
     }
 }

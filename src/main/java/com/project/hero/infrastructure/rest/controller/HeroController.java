@@ -10,7 +10,10 @@ import com.project.hero.application.usecases.SaveHeroService;
 import com.project.hero.domain.entity.Hero;
 import com.project.hero.infrastructure.rest.request.HeroeRequest;
 import com.project.hero.infrastructure.rest.response.HeroResponse;
+import com.sipios.springsearch.anotation.SearchSpec;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
@@ -67,11 +70,12 @@ public class HeroController {
 
     }
 
-    @GetMapping
-    public HeroResponse findAllHero() throws HeroNotFound {
+    @GetMapping()
+    public Page<HeroResponse> findAllHero(Pageable pageable, @SearchSpec Specification<Hero> specs) throws HeroNotFound {
 
+        Page<HeroDTO> heroes = heroFinderService.findAll(pageable, Specification.where(specs));
 
-        return null;
+        return heroes.map(heroMapper::toResponse);
     }
 
 
