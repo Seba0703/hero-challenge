@@ -19,6 +19,7 @@ import static org.hamcrest.core.IsEqual.equalTo;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.ResultMatcher.matchAll;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
@@ -80,7 +81,19 @@ public class HeroCrudControllerTest {
     @Test
     public void Given_UnHeroeCreado_When_SeBuscaPorId_Then_unHeroeEsEncontrado() throws Exception {
         var hero = heroFactory.create();
+        var heroFindId = heroPath.concat("/").concat(String.valueOf(hero.getId()));
 
+        this.mockMvc.perform(
+                get(heroFindId)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+        )
+                .andDo(print())
+                .andExpect(
+                        matchAll(
+                                status().isOk()
+                        )
+                );
 
     }
 }
