@@ -1,4 +1,4 @@
-package com.project.hero.infrastructure.rest;
+package com.project.hero.infrastructure.rest.controller;
 
 import com.project.hero.application.dto.HeroDTO;
 import com.project.hero.application.mapper.HeroMapper;
