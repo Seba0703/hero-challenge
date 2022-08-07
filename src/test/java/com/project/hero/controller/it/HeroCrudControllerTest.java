@@ -144,6 +144,8 @@ public class HeroCrudControllerTest {
                                 status().isNoContent()
                         )
                 );
+
+        assertTrue(heroRepo.findById(hero.getId()).isEmpty());
     }
 
 
