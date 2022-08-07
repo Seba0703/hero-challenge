@@ -39,5 +39,12 @@ public class HeroController {
         return heroMapper.toResponse(hero);
     }
 
+    @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    public HeroResponse findHero(@RequestBody HeroeRequest req) throws HeroNotFound {
+
+
+        return HeroResponse.builder().name("").power("").id(1).build();
+    }
+
 
 }

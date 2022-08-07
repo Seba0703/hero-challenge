@@ -1,6 +1,7 @@
 package com.project.hero.controller.it;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.github.javafaker.Faker;
 import com.project.hero.infrastructure.persistence.repository.HeroRespository;
 import com.project.hero.service.HeroFactory;
 import com.project.hero.service.HeroeRequestBuilder;
@@ -21,6 +22,7 @@ import static org.springframework.security.test.web.servlet.setup.SecurityMockMv
 import static org.springframework.test.web.servlet.ResultMatcher.matchAll;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
+import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.put;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -99,6 +101,29 @@ public class HeroCrudControllerTest {
 
                         )
                 );
-
     }
+
+    @Test
+    public void Given_UnHeroeCreado_When_SeBuscaActualizarElNombre_Then_unHeroeEsActualizado() throws Exception {
+        var hero = heroFactory.create();
+
+        hero.setName(new Faker().superhero().name());
+
+        this.mockMvc.perform(
+                put(heroPath)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .accept(MediaType.APPLICATION_JSON)
+                        .content(objectMapper.writeValueAsString(hero))
+
+                )
+                .andDo(print())
+                .andExpect(
+                        matchAll(
+                                status().isOk()
+
+                        )
+                );
+    }
+
+
 }
