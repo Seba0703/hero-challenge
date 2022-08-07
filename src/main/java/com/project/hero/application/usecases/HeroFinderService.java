@@ -28,11 +28,8 @@ public class HeroFinderService {
     public HeroDTO findHero(Integer id) throws HeroNotFound {
         Optional<Hero> getHero = heroQueryService.findHero(id);
 
-        if(getHero.isPresent()){
-            return heroMapper.toDTO(getHero.get());
-        } else {
-            throw new HeroNotFound();
-        }
+        return heroMapper.toDTO(getHero.orElseThrow(HeroNotFound::new));
+
     }
 
     public Page<HeroDTO> findAll(Pageable pageable, Specification<Hero> where) {
