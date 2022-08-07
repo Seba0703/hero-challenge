@@ -2,6 +2,7 @@ package com.project.hero.controller.it;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.project.hero.infrastructure.persistence.repository.HeroRespository;
+import com.project.hero.service.HeroFactory;
 import com.project.hero.service.HeroeRequestBuilder;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
@@ -28,7 +29,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 public class HeroCrudControllerTest {
     @Autowired
-    private HeroeRequestBuilder heroebuilder;
+    private HeroeRequestBuilder heroeReqBuilder;
+
+    @Autowired
+    private HeroFactory heroFactory;
 
     @Autowired
     private HeroRespository heroRepo;
@@ -52,7 +56,7 @@ public class HeroCrudControllerTest {
 
     @Test
     public void Given_AltaHeroe_When_ElUsuarioQuiereCargarUnHeroe_Then_HeroeCreado() throws Exception {
-        var req = heroebuilder.build();
+        var req = heroeReqBuilder.build();
         this.mockMvc.perform(
                 post(heroPath)
                         .contentType(MediaType.APPLICATION_JSON)
@@ -70,6 +74,13 @@ public class HeroCrudControllerTest {
                 );
 
         assertTrue(heroRepo.findById(req.getId()).isPresent());
+
+    }
+
+    @Test
+    public void Given_UnHeroeCreado_When_SeBuscaPorId_Then_unHeroeEsEncontrado() throws Exception {
+        var hero = heroFactory.create();
+
 
     }
 }
