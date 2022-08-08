@@ -98,6 +98,21 @@ public class HeroCrudControllerTest {
     }
 
     @Test
+    public void Given_NoHeroes_When_SeBuscaPorId_Then_NotFound() throws Exception {
+        var heroFindId = heroPath.concat("/")
+                .concat(String.valueOf(new Faker().number().randomNumber()));
+
+        this.mockMvc.perform(
+                        get(heroFindId)
+                                .contentType(MediaType.APPLICATION_JSON)
+                                .accept(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andExpect(
+                        matchAll(
+                                status().isNotFound()));
+    }
+
+    @Test
     public void Given_UnHeroeCreado_When_SeBuscaActualizarElNombre_Then_unHeroeEsActualizado() throws Exception {
         var hero = heroFactory.create();
 

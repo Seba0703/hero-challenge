@@ -3,6 +3,12 @@ spring:
     user:
       name: seba
       password: 1234
+  liquibase:
+    change-log: classpath:liquibase/liquibase-changelog.yml
+    enabled: false
+  h2:
+    console:
+      enabled: true
 logging:
   level:
     com:

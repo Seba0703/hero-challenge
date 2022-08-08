@@ -27,19 +27,15 @@ public class HeroUpdaterService {
 
     @CachePut(value = "heroes", key = "#heroReq.id")
     public HeroDTO update(HeroeRequest heroReq) throws HeroNotFound {
-        Optional<Hero> oldHero = heroQueryService.findHero(heroReq.getId());
+        Optional<Hero> oldHeroOpt = heroQueryService.findHero(heroReq.getId());
 
-        if(oldHero.isPresent()){
-            var heroUpdated = heroMapper.updateEntity(oldHero.get(), heroReq);
+        Hero oldHero = oldHeroOpt.orElseThrow(HeroNotFound::new);
 
-            heroUpdated = heroCommandService.update(heroUpdated);
+        var heroUpdated = heroMapper.updateEntity(oldHero, heroReq);
 
-            return heroMapper.toDTO(heroUpdated);
+        heroUpdated = heroCommandService.update(heroUpdated);
 
-        } else {
-            throw new HeroNotFound();
-        }
-
+        return heroMapper.toDTO(heroUpdated);
 
     }
 }

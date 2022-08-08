@@ -1,0 +1,9 @@
+databaseChangeLog:
+  - changeSet:
+      id: init-data
+      author: sebastian.rocha
+      changes:
+        - sql:
+            sql: INSERT INTO hero VALUES(1, 'Superman', 'Todopoderoso');
+        - sql:
+            sql: INSERT INTO hero VALUES(1, 'Batman', 'Millonario');
