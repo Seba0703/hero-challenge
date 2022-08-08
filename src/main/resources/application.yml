@@ -5,14 +5,12 @@ spring:
       password: 1234
   liquibase:
     change-log: classpath:liquibase/liquibase-changelog.yml
-    enabled: false
-  h2:
-    console:
-      enabled: true
+    enabled: true
+
 logging:
   level:
     com:
       project:
         hero: DEBUG
     org:
-      springframework: DEBUG
+      springframework: ERROR

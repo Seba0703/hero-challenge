@@ -4,6 +4,8 @@ databaseChangeLog:
       author: sebastian.rocha
       changes:
         - sql:
-            sql: INSERT INTO hero VALUES(1, 'Superman', 'Todopoderoso');
+            sql: CREATE TABLE hero (  id INT NOT NULL,  name VARCHAR(50) NOT NULL,  power VARCHAR(20) NOT NULL );
         - sql:
-            sql: INSERT INTO hero VALUES(1, 'Batman', 'Millonario');
+            sql: insert into hero values (1,'Superman','Todopoderoso');
+        - sql:
+            sql: insert into hero values (2,'Batman','Millonario');
