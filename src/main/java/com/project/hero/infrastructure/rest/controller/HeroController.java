@@ -1,5 +1,6 @@
 package com.project.hero.infrastructure.rest.controller;
 
+import com.project.hero.application.annotations.TimedLog;
 import com.project.hero.application.dto.HeroDTO;
 import com.project.hero.application.exceptions.HeroNotFound;
 import com.project.hero.application.mapper.HeroMapper;
@@ -41,12 +42,14 @@ public class HeroController {
     private HeroMapper heroMapper;
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @TimedLog
     public HeroResponse createHero(@RequestBody HeroeRequest req) {
         HeroDTO hero = saveHeroService.save(req);
         return heroMapper.toResponse(hero);
     }
 
     @GetMapping("/{id}")
+    @TimedLog
     public HeroResponse findHero(@PathVariable Integer id) throws HeroNotFound {
 
         HeroDTO hero = heroFinderService.findHero(id);
@@ -55,6 +58,7 @@ public class HeroController {
     }
 
     @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @TimedLog
     public HeroResponse findHero(@RequestBody HeroeRequest req) throws HeroNotFound {
 
         HeroDTO hero = heroUpdaterService.update(req);
@@ -64,6 +68,7 @@ public class HeroController {
 
     @DeleteMapping("/{id}")
     @ResponseStatus(value = HttpStatus.NO_CONTENT)
+    @TimedLog
     public void deleteHero(@PathVariable Integer id) throws HeroNotFound {
 
         heroEliminatorService.delete(id);
@@ -71,6 +76,7 @@ public class HeroController {
     }
 
     @GetMapping()
+    @TimedLog
     public Page<HeroResponse> findAllHero(Pageable pageable, @SearchSpec Specification<Hero> specs) throws HeroNotFound {
 
         Page<HeroDTO> heroes = heroFinderService.findAll(pageable, Specification.where(specs));
