@@ -25,9 +25,9 @@ public class HeroUpdaterService {
     @Autowired
     private HeroMapper heroMapper;
 
-    @CachePut(value = "heroes", key = "#heroReq.id")
-    public HeroDTO update(HeroeRequest heroReq) throws HeroNotFound {
-        Optional<Hero> oldHeroOpt = heroQueryService.findHero(heroReq.getId());
+    @CachePut(value = "heroes", key = "#id")
+    public HeroDTO update(HeroeRequest heroReq, Integer id) throws HeroNotFound {
+        Optional<Hero> oldHeroOpt = heroQueryService.findHero(id);
 
         Hero oldHero = oldHeroOpt.orElseThrow(HeroNotFound::new);
 

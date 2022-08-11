@@ -43,7 +43,7 @@ public class HeroController {
 
     @PostMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @TimedLog
-    public HeroResponse createHero(@RequestBody HeroeRequest req) {
+    public HeroResponse createHero(@RequestBody HeroeRequest req){
         HeroDTO hero = saveHeroService.save(req);
         return heroMapper.toResponse(hero);
     }
@@ -57,11 +57,11 @@ public class HeroController {
         return heroMapper.toResponse(hero);
     }
 
-    @PutMapping(consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
+    @PutMapping(value = "/{id}",consumes = APPLICATION_JSON_VALUE, produces = APPLICATION_JSON_VALUE)
     @TimedLog
-    public HeroResponse findHero(@RequestBody HeroeRequest req) throws HeroNotFound {
+    public HeroResponse findHero(@RequestBody HeroeRequest req, @PathVariable Integer id) throws HeroNotFound {
 
-        HeroDTO hero = heroUpdaterService.update(req);
+        HeroDTO hero = heroUpdaterService.update(req, id);
 
         return heroMapper.toResponse(hero);
     }

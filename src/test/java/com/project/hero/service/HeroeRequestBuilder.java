@@ -11,7 +11,6 @@ public class HeroeRequestBuilder {
 
     public HeroeRequest build() {
         return HeroeRequest.builder()
-                .id(faker.number().randomDigit())
                 .name(faker.superhero().name())
                 .power(faker.superhero().power())
                 .build();

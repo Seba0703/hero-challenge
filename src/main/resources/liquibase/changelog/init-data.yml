@@ -4,12 +4,12 @@ databaseChangeLog:
       author: sebastian.rocha
       changes:
         - sql:
-            sql: CREATE TABLE hero (  id INT NOT NULL,  name VARCHAR(50) NOT NULL,  power VARCHAR(24) NOT NULL );
+            sql: CREATE TABLE hero (  id INT AUTO_INCREMENT PRIMARY KEY,  name VARCHAR(100) NOT NULL,  power VARCHAR(100) NOT NULL );
         - sql:
-            sql: insert into hero values (1,'Superman','Todopoderoso');
+            sql: insert into hero(name, power) values ('Superman','Todopoderoso');
         - sql:
-            sql: insert into hero values (2,'Batman','Millonario');
+            sql: insert into hero(name, power) values ('Batman','Millonario');
         - sql:
-            sql: CREATE TABLE revinfo ( id INT NOT NULL AUTO_INCREMENT,  REV VARCHAR(50),  REVTSTMP VARCHAR(24));
+            sql: CREATE TABLE revinfo ( id INT NOT NULL AUTO_INCREMENT,  REV VARCHAR(100),  REVTSTMP VARCHAR(100));
         - sql:
-            sql: CREATE TABLE HERO_AUD ( id INT NOT NULL,  REVTYPE VARCHAR(50),  NAME VARCHAR(26), POWER VARCHAR(24), REV VARCHAR(24))
+            sql: CREATE TABLE HERO_AUD ( id INT NOT NULL,  REVTYPE VARCHAR(100),  NAME VARCHAR(100), POWER VARCHAR(100), REV VARCHAR(100))
