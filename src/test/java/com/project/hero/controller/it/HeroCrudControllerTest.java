@@ -2,6 +2,7 @@ package com.project.hero.controller.it;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.github.javafaker.Faker;
+import com.project.hero.domain.entity.Hero;
 import com.project.hero.infrastructure.persistence.repository.HeroRespository;
 import com.project.hero.service.HeroFactory;
 import com.project.hero.service.HeroeRequestBuilder;
@@ -11,6 +12,7 @@ import org.junit.jupiter.api.TestInstance;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.data.domain.Example;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
@@ -18,6 +20,7 @@ import org.springframework.web.context.WebApplicationContext;
 
 import static org.hamcrest.Matchers.notNullValue;
 import static org.hamcrest.core.IsEqual.equalTo;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.mockito.ArgumentMatchers.isNotNull;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
@@ -73,6 +76,8 @@ public class HeroCrudControllerTest {
                                 jsonPath("$.name", equalTo(req.getName())),
                                 jsonPath("$.power", equalTo(req.getPower())))
                 );
+
+        assertFalse(heroRepo.findByName(req.getName()).isEmpty());
 
     }
 

@@ -13,4 +13,4 @@ logging:
       project:
         hero: DEBUG
     org:
-      springframework: ERROR
+      springframework: DEBUG

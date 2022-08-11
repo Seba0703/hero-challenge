@@ -16,6 +16,8 @@ public class Hero {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+    @Basic(optional = false)
+    @Column(nullable = false)
     private String name;
     private String power;
 }

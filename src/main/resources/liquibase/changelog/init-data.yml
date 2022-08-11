@@ -4,7 +4,7 @@ databaseChangeLog:
       author: sebastian.rocha
       changes:
         - sql:
-            sql: CREATE TABLE hero (  id INT AUTO_INCREMENT PRIMARY KEY,  name VARCHAR(100) NOT NULL,  power VARCHAR(100) NOT NULL );
+            sql: CREATE TABLE hero (  id INT AUTO_INCREMENT PRIMARY KEY,  name VARCHAR(150) NOT NULL,  power VARCHAR(150) NOT NULL );
         - sql:
             sql: insert into hero(name, power) values ('Superman','Todopoderoso');
         - sql:
@@ -12,4 +12,4 @@ databaseChangeLog:
         - sql:
             sql: CREATE TABLE revinfo ( id INT NOT NULL AUTO_INCREMENT,  REV VARCHAR(100),  REVTSTMP VARCHAR(100));
         - sql:
-            sql: CREATE TABLE HERO_AUD ( id INT NOT NULL,  REVTYPE VARCHAR(100),  NAME VARCHAR(100), POWER VARCHAR(100), REV VARCHAR(100))
+            sql: CREATE TABLE HERO_AUD ( id INT NOT NULL,  REVTYPE VARCHAR(50),  NAME VARCHAR(150), POWER VARCHAR(150), REV VARCHAR(24))
