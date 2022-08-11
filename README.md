@@ -33,5 +33,7 @@ Se uso **spring-search** que usa **Specifications** de Spring-Boot: https://gith
 
 ### Ver documentacion de la Api
 
-OpenApi Docs : http://localhost:8080/swagger-ui.html
+OpenApi Docs: http://localhost:8080/swagger-ui.html
+
+Swagger.yaml: https://github.com/Seba0703/hero-challenge/blob/ea3b4d19ece0efd3760329ee7b3605b2cfd31907/swagger.yaml
 
