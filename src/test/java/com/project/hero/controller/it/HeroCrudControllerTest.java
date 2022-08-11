@@ -69,12 +69,10 @@ public class HeroCrudControllerTest {
                 .andExpect(
                         matchAll(
                                 status().isOk(),
-                                jsonPath("$.id", equalTo(req.getId())),
+                                jsonPath("$.id", notNullValue()),
                                 jsonPath("$.name", equalTo(req.getName())),
                                 jsonPath("$.power", equalTo(req.getPower())))
                 );
-
-        assertTrue(heroRepo.findById(req.getId()).isPresent());
 
     }
 
@@ -116,10 +114,13 @@ public class HeroCrudControllerTest {
     public void Given_UnHeroeCreado_When_SeBuscaActualizarElNombre_Then_unHeroeEsActualizado() throws Exception {
         var hero = heroFactory.create();
 
+        var heroFindId = heroPath.concat("/")
+                .concat(String.valueOf(hero.getId()));
+
         hero.setName(new Faker().superhero().name());
 
         this.mockMvc.perform(
-                put(heroPath)
+                put(heroFindId)
                         .contentType(MediaType.APPLICATION_JSON)
                         .accept(MediaType.APPLICATION_JSON)
                         .content(objectMapper.writeValueAsString(hero)))
@@ -127,7 +128,7 @@ public class HeroCrudControllerTest {
                 .andExpect(
                         matchAll(
                                 status().isOk(),
-                                jsonPath("$.id", equalTo(hero.getId())),
+                                jsonPath("$.id", notNullValue()),
                                 jsonPath("$.name", equalTo(hero.getName())),
                                 jsonPath("$.power", equalTo(hero.getPower()))));
     }
